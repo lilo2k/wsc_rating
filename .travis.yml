@@ -11,3 +11,5 @@ deploy:
   on:
     repo: lilo2k/wsc_rating
     branch: master
+before_install:
+  - chmod +x mvnw
