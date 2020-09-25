@@ -7,7 +7,7 @@ deploy:
   provider: heroku
   api_key:
     secure: vBcrF8yOucVOEDa8bp7+dOBL6vk+CmOCaVuHB9mF4LGZIMY49Ue+Jm4bLmg0WIAvs4srrgcXP8VFnzzLKlK+zGump6eOLSdwBumJ3rZSxjrm2sw8E2QESQL1Ac1pmnURPQK+5mPutSZn14DSH4IfFKRqaujRlWNL+l2gBWuxR1sLe1SrMgTfxyFbEw8n8o4SzeupFLptrwNc5BRnGTDXakIe5w++I/uO5JAixrbNP8Xs9mncHRGbeKpicPYc0STHoljzxhQ4xsFz85JQ+/1jWTfqtaA4OcsIfmBDlyXbpMEZV/OW5DJCRimXA7ZyVo2b+Paea4GJPJHr7gaVjBly+uXKa8ulAA5VDsN6zPp1iw2o8nHIHjjqxhTSGxeNYjUB6H0m6VzIqMAOmhuMQiHP5Qvk3Pfc5v6RqkHQ+WHHUB6YLAWW/pYxlHLvizUZYSWVoGjL9OAQsaJekSBM+UuxIAJtdDiKoTZYlZg1EX4WYgvU0B0G5DSaP2qcUDREsit5HY8pEXRchqDf9N2Cu5rafnzcAIKCAKAMvdX03BQv70f3JvZ7xy1BSJNFRIqvULVzciXSIFGeFwnDy85InPzBhxXdBEdRqpVT8tqU5S4SmAEbqZdk0Ski8s300U9lqMyJsgopHeYAK8RgwWUvscYjEUgvSqKZbWNU7D2gS2gFmvY=
-  app: wsc-rating-service
+  app: wsc2020-rating-service
   on:
     repo: lilo2k/wsc_rating
     branch: master
