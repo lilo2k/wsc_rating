@@ -1,13 +1,13 @@
 language: java
 jdk:
-  - openjdk11
+- openjdk11
 script:
-  - mvn clean package
+- mvn clean package
 deploy:
-    provider: heroku
-    api_key:
-      secure: M+MJWNEeolhUUnux8AJ3Afl2z/8QGxYE99nkODfg+EV6DtkyRf9OnzK+woH9ucdAKhVFKotxPSZQ77CbKY59G///0vqvrr8hIqDP6MeLQUPQuYZjVpaDKLF/ojztkukwNbE+9Ei7dapmFcC1FSnydMAAkYrFc3wR+0kgdJgnFWguoj6hGU0ie+T6z589a+vGWQeLIr41nX8+o8MQRfZF/bIZKYnFysVY2Umwsy3PjDY0QUzFEd7KyqN7YCV/hN85wHzM+hLGivhHG4cuCCyT+oiYT5ZmG2tIP+JVt7+vTAUtWoPpTMbEubUwIdeAjfV6forzEQ8e5NfpE3K1CDXvCiXWaNm6Q8QfdTbXREw/T7znce4dmP0tGd8PBp0bwRol5QpAoRbSpTt4Vy7+UKtpo853Wqks2LxCCwRaXmCKgYqbvcLgmhZ9ApQruIVDoswsASujbjRyPFyIGujTSvw5FSvycMW8GfHypmsf6YLSaiUwKmLiJmisjzwHssxKv/DnPf7qZXJR8JYAAitxawrVYa8oZ+fMu1gvQi8pIv7NlzUD1xsSuP2vKvfiQ2FSt+QsRzZi2xZKatGQ0XRwoTNdreMXt9Tzq+6bELObI4vaM+MNMh92cc2r9eOoISMQmd45on3NIYZ4BqaR3+SDKNHZsUdNBxhfVg2J6o0WqfljXpg=
-    app: wsc-rating-service
-    on:
-      repo: lilo2k/wsc_rating
-      branch: master
+  provider: heroku
+  api_key:
+    secure: vBcrF8yOucVOEDa8bp7+dOBL6vk+CmOCaVuHB9mF4LGZIMY49Ue+Jm4bLmg0WIAvs4srrgcXP8VFnzzLKlK+zGump6eOLSdwBumJ3rZSxjrm2sw8E2QESQL1Ac1pmnURPQK+5mPutSZn14DSH4IfFKRqaujRlWNL+l2gBWuxR1sLe1SrMgTfxyFbEw8n8o4SzeupFLptrwNc5BRnGTDXakIe5w++I/uO5JAixrbNP8Xs9mncHRGbeKpicPYc0STHoljzxhQ4xsFz85JQ+/1jWTfqtaA4OcsIfmBDlyXbpMEZV/OW5DJCRimXA7ZyVo2b+Paea4GJPJHr7gaVjBly+uXKa8ulAA5VDsN6zPp1iw2o8nHIHjjqxhTSGxeNYjUB6H0m6VzIqMAOmhuMQiHP5Qvk3Pfc5v6RqkHQ+WHHUB6YLAWW/pYxlHLvizUZYSWVoGjL9OAQsaJekSBM+UuxIAJtdDiKoTZYlZg1EX4WYgvU0B0G5DSaP2qcUDREsit5HY8pEXRchqDf9N2Cu5rafnzcAIKCAKAMvdX03BQv70f3JvZ7xy1BSJNFRIqvULVzciXSIFGeFwnDy85InPzBhxXdBEdRqpVT8tqU5S4SmAEbqZdk0Ski8s300U9lqMyJsgopHeYAK8RgwWUvscYjEUgvSqKZbWNU7D2gS2gFmvY=
+  app: wsc-rating-service
+  on:
+    repo: lilo2k/wsc_rating
+    branch: master
