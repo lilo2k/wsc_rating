@@ -16,7 +16,7 @@ public class RateServiceApplication {
 
 	@GetMapping("/")
 	public String rate() {
-	return String.format("Rating service");
+	return String.format("Rating service!!!");
 	}  
 
 	@GetMapping("/hello")
