@@ -58,7 +58,7 @@ public class RateRestController {
         if (rate == null)
             handleRecordNotFoundException(jobID);
             
-            return ObjectMapperUtils.map(rate, RateDTO.class);
+        return ObjectMapperUtils.map(rate, RateDTO.class);
     }
 
     private void handleRecordNotFoundException(String jobID) {
@@ -68,6 +68,18 @@ public class RateRestController {
     
     @PostMapping(value = "/")
     public ResponseEntity<?> saveOrUpdate(@RequestBody RateDTO rateDTO) {
+        rateService.saveOrUpdate(ObjectMapperUtils.map(rateDTO, Rate.class));
+        return new ResponseEntity("Rate added successfully", HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/{jobID}")
+    public ResponseEntity<?> saveOrUpdate(@PathVariable("jobID") String jobID, @RequestBody RateDTO rateDTO) {
+        Rate rate = rateService.findByJobID(jobID);
+
+        if (rate == null)
+            handleRecordNotFoundException(jobID);
+
+        rateDTO.setJobID(jobID);
         rateService.saveOrUpdate(ObjectMapperUtils.map(rateDTO, Rate.class));
         return new ResponseEntity("Rate added successfully", HttpStatus.OK);
     }
@@ -85,7 +97,7 @@ public class RateRestController {
         if (rateObject == null)
             handleRecordNotFoundException(jobID);
 
-            rateObject.setRate(rate);
+        rateObject.setRate(rate);
         rateService.saveOrUpdate(rateObject);
         return new ResponseEntity("Rate updated successfully", HttpStatus.OK);
     }
