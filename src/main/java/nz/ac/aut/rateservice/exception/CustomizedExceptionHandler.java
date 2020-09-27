@@ -17,14 +17,14 @@ public class CustomizedExceptionHandler extends ResponseEntityExceptionHandler  
     @ExceptionHandler(Exception.class)
     public final ResponseEntity<ExceptionResponse> handleAllExceptions(Exception ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), 
-            request.getDescription(false));
+            request.getDescription(false), HttpStatus.NOT_FOUND.toString());
         return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(RateNotFoundException.class)
     public final ResponseEntity<ExceptionResponse> handleUserNotFoundException(RateNotFoundException ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(),
-            request.getDescription(false));
+            request.getDescription(false), HttpStatus.NOT_FOUND.toString());
         return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
     }
 }

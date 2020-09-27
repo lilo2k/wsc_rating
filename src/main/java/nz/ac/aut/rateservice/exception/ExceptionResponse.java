@@ -6,6 +6,7 @@ public class ExceptionResponse {
     private Date timestamp;
     private String message;
     private String details;
+    private String statusCode;
 
     public ExceptionResponse(Date timestamp, String message, String details) {
         super();
@@ -24,5 +25,20 @@ public class ExceptionResponse {
 
     public String getDetails() {
         return details;
+    }
+
+    public String getStatusCode() {
+        return statusCode;
+    }
+
+    public void setStatusCode(String statusCode) {
+        this.statusCode = statusCode;
+    }
+
+    public ExceptionResponse(Date timestamp, String message, String details, String statusCode) {
+        this.timestamp = timestamp;
+        this.message = message;
+        this.details = details;
+        this.statusCode = statusCode;
     }
 }
