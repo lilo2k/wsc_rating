@@ -68,7 +68,15 @@ public class RateRestController {
     
     @PostMapping(value = "/")
     public ResponseEntity<?> saveOrUpdate(@RequestBody RateDTO rateDTO) {
-        rateService.saveOrUpdate(ObjectMapperUtils.map(rateDTO, Rate.class));
+        Rate rate = rateService.findByJobID(rateDTO.getJobID());
+
+        if (rate == null) {
+            rateService.saveOrUpdate(ObjectMapperUtils.map(rateDTO, Rate.class));
+        }
+        else {
+            rate.setRate(rateDTO.getRate());
+            rateService.saveOrUpdate(ObjectMapperUtils.map(rate, Rate.class));
+        }
         return new ResponseEntity("Rate added successfully", HttpStatus.OK);
     }
 
@@ -76,17 +84,28 @@ public class RateRestController {
     public ResponseEntity<?> saveOrUpdate(@PathVariable("jobID") String jobID, @RequestBody RateDTO rateDTO) {
         Rate rate = rateService.findByJobID(jobID);
 
-        if (rate == null)
-            handleRecordNotFoundException(jobID);
-
-        rateDTO.setJobID(jobID);
-        rateService.saveOrUpdate(ObjectMapperUtils.map(rateDTO, Rate.class));
+        if (rate == null) {
+            rateDTO.setJobID(jobID);
+            rateService.saveOrUpdate(ObjectMapperUtils.map(rateDTO, Rate.class));
+        }
+        else {
+            rate.setRate(rateDTO.getRate());
+            rateService.saveOrUpdate(ObjectMapperUtils.map(rate, Rate.class));
+        }
         return new ResponseEntity("Rate added successfully", HttpStatus.OK);
     }
-
+    
     @PostMapping(value = "/{jobID}/{rate}")
-    public ResponseEntity<?> createRate(@PathVariable("jobID") String jobID, @PathVariable("rate") int rate) {
-        rateService.saveOrUpdate(ObjectMapperUtils.map(new RateDTO(jobID, rate), Rate.class));
+    public ResponseEntity<?> createRate(@PathVariable("jobID") String jobID, @PathVariable("rate") int rateNumber) {
+        Rate rate = rateService.findByJobID(jobID);
+    
+        if (rate == null) {
+            rateService.saveOrUpdate(ObjectMapperUtils.map(new RateDTO(jobID, rateNumber), Rate.class));
+        }
+        else {
+            rate.setRate(rateNumber);
+            rateService.saveOrUpdate(ObjectMapperUtils.map(rate, Rate.class));
+        }
         return new ResponseEntity("Rate added successfully", HttpStatus.OK);
     }
 
