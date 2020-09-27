@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import nz.ac.aut.rateservice.dto.RateDTO;
@@ -65,11 +66,11 @@ public class RateRestController {
         throw new RateNotFoundException(msg);
     }
     
-    // @PostMapping(value = "/")
-    // public ResponseEntity<?> saveOrUpdate(@RequestBody RateDTO rateDTO) {
-    // rateService.saveOrUpdate(ObjectMapperUtils.map(rateDTO, Rate.class));
-    // return new ResponseEntity("Rate added successfully", HttpStatus.OK);
-    // }
+    @PostMapping(value = "/")
+    public ResponseEntity<?> saveOrUpdate(@RequestBody RateDTO rateDTO) {
+        rateService.saveOrUpdate(ObjectMapperUtils.map(rateDTO, Rate.class));
+        return new ResponseEntity("Rate added successfully", HttpStatus.OK);
+    }
 
     @PostMapping(value = "/{jobID}/{rate}")
     public ResponseEntity<?> createRate(@PathVariable("jobID") String jobID, @PathVariable("rate") int rate) {
