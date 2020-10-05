@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import nz.ac.aut.rateservice.dto.RateDTO;
+import nz.ac.aut.rateservice.exception.RateAlreadyExistsException;
 import nz.ac.aut.rateservice.exception.RateNotFoundException;
 import nz.ac.aut.rateservice.model.Rate;
 import nz.ac.aut.rateservice.service.RateService;
@@ -56,12 +57,12 @@ public class RateRestController {
         Rate rate = rateService.findByJobID(jobID);
 
         if (rate == null)
-            handleRecordNotFoundException(jobID);
+            handleRatedNotFoundException(jobID);
             
         return ObjectMapperUtils.map(rate, RateDTO.class);
     }
 
-    private void handleRecordNotFoundException(String jobID) {
+    private void handleRatedNotFoundException(String jobID) {
         String msg = (jobID == null ) ? NO_RECORD_FOUND_JOB_ID: NO_RECORD_FOUND_JOB_ID + " - Job ID: " + jobID;
         throw new RateNotFoundException(msg);
     }
@@ -74,39 +75,47 @@ public class RateRestController {
             rateService.saveOrUpdate(ObjectMapperUtils.map(rateDTO, Rate.class));
         }
         else {
-            rate.setRate(rateDTO.getRate());
-            rateService.saveOrUpdate(ObjectMapperUtils.map(rate, Rate.class));
+            handleRateAlreadyExistsException(rateDTO.getJobID());
+            // rate.setRate(rateDTO.getRate());
+            // rateService.saveOrUpdate(ObjectMapperUtils.map(rate, Rate.class));
         }
-        return new ResponseEntity("Rate added successfully", HttpStatus.OK);
+        return new ResponseEntity("Rate added successfully", HttpStatus.CREATED);
     }
-
+    
+    private void handleRateAlreadyExistsException(String jobID) {
+        throw new RateAlreadyExistsException("Job ID: " + jobID + " already exists.");
+    }
+    
     @PostMapping(value = "/{jobID}")
     public ResponseEntity<?> saveOrUpdate(@PathVariable("jobID") String jobID, @RequestBody RateDTO rateDTO) {
         Rate rate = rateService.findByJobID(jobID);
-
+        
         if (rate == null) {
             rateDTO.setJobID(jobID);
             rateService.saveOrUpdate(ObjectMapperUtils.map(rateDTO, Rate.class));
         }
         else {
-            rate.setRate(rateDTO.getRate());
-            rateService.saveOrUpdate(ObjectMapperUtils.map(rate, Rate.class));
+            handleRateAlreadyExistsException(jobID);
+            // rate.setRate(rateDTO.getRate());
+            // rateService.saveOrUpdate(ObjectMapperUtils.map(rate, Rate.class));
+            
         }
-        return new ResponseEntity("Rate added successfully", HttpStatus.OK);
+        return new ResponseEntity("Rate added successfully", HttpStatus.CREATED);
     }
     
     @PostMapping(value = "/{jobID}/{rate}")
     public ResponseEntity<?> createRate(@PathVariable("jobID") String jobID, @PathVariable("rate") int rateNumber) {
         Rate rate = rateService.findByJobID(jobID);
-    
+        
         if (rate == null) {
             rateService.saveOrUpdate(ObjectMapperUtils.map(new RateDTO(jobID, rateNumber), Rate.class));
         }
         else {
-            rate.setRate(rateNumber);
-            rateService.saveOrUpdate(ObjectMapperUtils.map(rate, Rate.class));
+            handleRateAlreadyExistsException(jobID);
+            // rate.setRate(rateNumber);
+            // rateService.saveOrUpdate(ObjectMapperUtils.map(rate, Rate.class));
         }
-        return new ResponseEntity("Rate added successfully", HttpStatus.OK);
+        return new ResponseEntity("Rate added successfully", HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/{jobID}/{rate}")
@@ -114,7 +123,7 @@ public class RateRestController {
         Rate rateObject = rateService.findByJobID(jobID);
         
         if (rateObject == null)
-            handleRecordNotFoundException(jobID);
+            handleRatedNotFoundException(jobID);
 
         rateObject.setRate(rate);
         rateService.saveOrUpdate(rateObject);
@@ -126,7 +135,7 @@ public class RateRestController {
         Rate rateObject = rateService.findByJobID(jobID);
         
         if (rateObject == null)
-            handleRecordNotFoundException(jobID);
+            handleRatedNotFoundException(jobID);
         
         rateService.deleteById(rateObject.getId());
         return new ResponseEntity("Rate deleted successfully", HttpStatus.OK);

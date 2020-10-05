@@ -22,9 +22,16 @@ public class CustomizedExceptionHandler extends ResponseEntityExceptionHandler  
     }
 
     @ExceptionHandler(RateNotFoundException.class)
-    public final ResponseEntity<ExceptionResponse> handleUserNotFoundException(RateNotFoundException ex, WebRequest request) {
+    public final ResponseEntity<ExceptionResponse> handleRateNotFoundException(RateNotFoundException ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(),
             request.getDescription(false), HttpStatus.NOT_FOUND.toString());
         return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(RateAlreadyExistsException.class)
+    public final ResponseEntity<ExceptionResponse> handleRateAlreadyExistsException(RateAlreadyExistsException ex, WebRequest request) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(),
+            request.getDescription(false), HttpStatus.CONFLICT.toString());
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.CONFLICT);
     }
 }
