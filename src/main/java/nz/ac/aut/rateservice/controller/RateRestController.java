@@ -79,7 +79,7 @@ public class RateRestController {
             // rate.setRate(rateDTO.getRate());
             // rateService.saveOrUpdate(ObjectMapperUtils.map(rate, Rate.class));
         }
-        return new ResponseEntity("Rate added successfully", HttpStatus.CREATED);
+        return new ResponseEntity("Rate added successfully - Job ID: " + rateDTO.getJobID(), HttpStatus.CREATED);
     }
     
     private void handleRateAlreadyExistsException(String jobID) {
@@ -100,7 +100,7 @@ public class RateRestController {
             // rateService.saveOrUpdate(ObjectMapperUtils.map(rate, Rate.class));
             
         }
-        return new ResponseEntity("Rate added successfully", HttpStatus.CREATED);
+        return new ResponseEntity("Rate added successfully - Job ID: " + jobID, HttpStatus.CREATED);
     }
     
     @PostMapping(value = "/{jobID}/{rate}")
@@ -115,7 +115,7 @@ public class RateRestController {
             // rate.setRate(rateNumber);
             // rateService.saveOrUpdate(ObjectMapperUtils.map(rate, Rate.class));
         }
-        return new ResponseEntity("Rate added successfully", HttpStatus.CREATED);
+        return new ResponseEntity("Rate added successfully - Job ID: " + jobID, HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/{jobID}/{rate}")
@@ -127,7 +127,7 @@ public class RateRestController {
 
         rateObject.setRate(rate);
         rateService.saveOrUpdate(rateObject);
-        return new ResponseEntity("Rate updated successfully", HttpStatus.OK);
+        return new ResponseEntity("Rate updated successfully - Job ID: " + jobID, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{jobID}")
@@ -138,6 +138,6 @@ public class RateRestController {
             handleRatedNotFoundException(jobID);
         
         rateService.deleteById(rateObject.getId());
-        return new ResponseEntity("Rate deleted successfully", HttpStatus.OK);
+        return new ResponseEntity("Rate deleted successfully - Job ID: " + jobID, HttpStatus.OK);
     }
 }
